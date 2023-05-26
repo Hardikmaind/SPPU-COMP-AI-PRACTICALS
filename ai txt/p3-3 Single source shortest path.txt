@@ -1,0 +1,35 @@
+from math import inf
+
+def Dijkstra(graph, start):
+    num_nodes = len(graph)
+    dist = [inf] * num_nodes
+    dist[start] = 0
+    visited = [False] * num_nodes
+    
+    for _ in range(num_nodes):
+        u = -1
+        for x in range(num_nodes):
+            if not visited[x] and (u == -1 or dist[x] < dist[u]):
+                u = x
+        
+        if dist[u] == inf:
+            break
+        
+        visited[u] = True
+        
+        for v in graph[u]:
+            if dist[u] + 1 < dist[v]:
+                dist[v] = dist[u] + 1
+    
+    return dist
+
+graph = {
+    0: [1, 4],
+    1: [2, 3, 4],
+    2: [1, 3, 5],
+    3: [4, 1, 2, 5],
+    4: [0, 1, 3, 5],
+    5: [2, 3, 4]
+}
+
+print(Dijkstra(graph, 4))

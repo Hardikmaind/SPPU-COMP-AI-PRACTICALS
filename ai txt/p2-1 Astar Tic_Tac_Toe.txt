@@ -1,0 +1,80 @@
+def sum(a, b, c ):
+    return a + b + c
+
+def printBoard(xState, zState):
+    zero = 'X' if xState[0] else ('O' if zState[0] else 0)
+    one = 'X' if xState[1] else ('O' if zState[1] else 1)
+    two = 'X' if xState[2] else ('O' if zState[2] else 2)
+    three = 'X' if xState[3] else ('O' if zState[3] else 3)
+    four = 'X' if xState[4] else ('O' if zState[4] else 4)
+    five = 'X' if xState[5] else ('O' if zState[5] else 5)
+    six = 'X' if xState[6] else ('O' if zState[6] else 6)
+    seven = 'X' if xState[7] else ('O' if zState[7] else 7)
+    eight = 'X' if xState[8] else ('O' if zState[8] else 8)
+    print(f"{zero} | {one} | {two} ")
+    print(f"--|---|---")
+    print(f"{three} | {four} | {five} ")
+    print(f"--|---|---")
+    print(f"{six} | {seven} | {eight} ") 
+
+def checkWin(xState, zState):
+    wins = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    for win in wins:
+        if(sum(xState[win[0]], xState[win[1]], xState[win[2]]) == 3):
+            print("X Won the match")
+            return 1
+        if(sum(zState[win[0]], zState[win[1]], zState[win[2]]) == 3):
+            print("O Won the match")
+            return 0
+    return -1
+    
+if __name__ == "__main__":
+    xState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    zState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    turn = 1 # 1 for X and 0 for O
+    print("Welcome to Tic Tac Toe")
+    while(True):
+        printBoard(xState, zState)
+        if(turn == 1):
+            print("X's Chance")
+            value = int(input("Please enter a value: "))
+            xState[value] = 1
+        else:
+            print("O's Chance")
+            value = int(input("Please enter a value: "))
+            zState[value] = 1
+        cwin = checkWin(xState, zState)
+        if(cwin != -1):
+            print("Match over")
+            break
+        
+        turn = 1 - turn
+
+#The sum(a, b, c) function takes three arguments and returns their sum.
+
+#The printBoard(xState, zState) function prints the current state of the Tic Tac Toe board. 
+#It takes two lists, xState and zState, which represent the moves made by players X and O, respectively.
+#The function uses conditional statements to determine the appropriate symbol ('X', 'O', or the position number) for each cell of the board and prints it.
+
+#The checkWin(xState, zState) function checks for a win condition in the game.
+#It defines a list of winning combinations called wins. 
+#The function iterates over each winning combination and checks if either player X or player O has filled that combination. 
+#It does this by summing the values of the corresponding cells in xState and zState. 
+#If the sum is equal to 3, it means that player X has won, and the function returns 1. 
+#If the sum is equal to 3, it means that player O has won, and the function returns 0. 
+#If no player has won yet, the function returns -1.
+#The if __name__ == "__main__": block is the entry point of the code. 
+#It initializes the game board states xState and zState as empty lists, representing an empty board. 
+#The variable turn is set to 1, indicating that it's player X's turn to play.
+#The code enters an infinite loop using while(True). 
+#In each iteration of the loop, it calls the printBoard function to display the current state of the board. 
+#It then checks whose turn it is (player X or player O) and asks for input from the respective player. 
+#The player is prompted to enter a value representing the position on the board where they want to make their move.
+#After receiving the input, the code updates the game board states (xState or zState) based on the player's move. 
+#It assigns the value 1 to the corresponding position in the respective state list.
+#The code then calls the checkWin function to check if the current move resulted in a win. If the checkWin function returns a value other than -1, it means a player has won, and the code breaks out of the loop. The message "Match over" is printed to indicate the end of the game.
+
+# If there is no winner yet, the code switches the turn to the other player by subtracting the current turn from 1. This is achieved by the statement turn = 1 - turn. Player X's turn is represented by the value 1, and player O's turn is represented by the value 0.
+
+# The loop continues until a player wins, and then the program terminates.
+

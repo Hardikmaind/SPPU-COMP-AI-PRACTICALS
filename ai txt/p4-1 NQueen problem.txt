@@ -1,0 +1,59 @@
+print ("Enter the number of queens")
+N = int(input())
+
+#chessboard
+#NxN matrix with all elements 0
+board = [[0]*N for _ in range(N)]
+
+def is_attack(i, j):
+    #checking if there is a queen in row or column
+    for k in range(0,N):
+        if board[i][k]==1 or board[k][j]==1:
+            return True
+    #checking diagonals
+    for k in range(0,N):
+        for l in range(0,N):
+            if (k+l==i+j) or (k-l==i-j):
+                if board[k][l]==1:
+                    return True
+    return False
+
+def N_queen(n):
+    #if n is 0, solution found
+    if n==0:
+        return True
+    for i in range(0,N):
+        for j in range(0,N):
+            '''checking if we can place a queen here or not
+            queen will not be placed if the place is being attacked
+            or already occupied'''
+            if (not(is_attack(i,j))) and (board[i][j]!=1):
+                board[i][j] = 1
+                #recursion
+                #wether we can put the next queen with this arrangment or not
+                if N_queen(n-1)==True:
+                    return True
+                board[i][j] = 0
+
+    return False
+
+N_queen(N)
+for i in board:
+    print (i)
+
+
+#The user is prompted to enter the number of queens (N) they want to place on the chessboard.
+
+#The is_attack function checks if a queen placed at position (i, j) on the chessboard is being attacked by any other queen. 
+#It checks if there is a queen in the same row, same column, or diagonals of the given position.
+
+#The N_queen function uses a recursive approach to solve the N-Queens problem. 
+#It takes an argument n, which represents the number of queens left to be placed. 
+#The base case is when n becomes 0, indicating that all queens have been placed successfully. 
+#In each recursive call, the function tries to place a queen at each cell of the chessboard and checks if it leads to a valid solution. 
+#If a valid solution is found, the function returns True. If not, it backtracks and removes the queen from the cell.
+#The main part of the code calls the N_queen function with the input N. 
+#If a valid solution exists, it prints the resulting chessboard with the queen placements.
+
+#Overall, the code uses a backtracking algorithm to try different queen placements on the chessboard until a valid solution is found. 
+#It uses the is_attack function to check if a queen placement is valid or not.

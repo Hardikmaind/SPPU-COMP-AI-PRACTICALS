@@ -1,0 +1,28 @@
+def jio_mart_chatbot():
+    print("Welcome to JioMart! How can I assist you today?")
+    
+    while True:
+        user_input = input("> ").lower()
+        
+        if user_input == "exit":
+            print("Thank you for using JioMart Chatbot. Have a great day!")
+            break
+        
+        elif "product availability" in user_input:
+            product_name = user_input.split("product availability ")[-1]
+            print(f"The product '{product_name}' is currently available.")
+            
+        elif "order tracking" in user_input:
+            order_id = user_input.split("order tracking ")[-1]
+            print(f"The order with ID '{order_id}' is out for delivery.")
+            
+        elif "contact" in user_input or "support" in user_input:
+            print("For any queries or support, please reach out to our customer support at 1800-XXX-XXXX.")
+            
+        else:
+            print("I'm sorry, but I couldn't understand your query. Please try again or ask for assistance.")
+            
+# Run the chatbot
+jio_mart_chatbot()
+
+

@@ -1,0 +1,65 @@
+ipt=[[1,2],[1,5],[2,3],[2,4],[2,5],[3,4],[3,6],[4,5],[4,6],[5,6]]    #these are the edges
+
+graph={}    #this is the empty dictinory
+n=6  #this is the no of vertices
+
+for i in range(1,n+1):
+    graph[i]=[]   #here we initialised the key (graph[i]) and we assinged empty list to it
+for (u,v) in ipt:
+    graph[u].append(v)   #here we append the v values to key u and in below u values to key v
+    graph[v].append(u)
+print(graph)    #then we print the dictonary. this is called as adjacency list
+
+
+
+
+
+
+visited = set() 
+
+def dfs(visited, graph, node):
+    if node not in visited:
+        print (node)
+        visited.add(node)
+        for neighbour in graph[node]:
+            dfs(visited, graph, neighbour)
+
+dfs(visited, graph, 5)
+
+
+
+ipt = [[1, 2], [1, 5], [2, 3], [2, 4], [2, 5], [3, 4], [3, 6], [4, 5], [4, 6], [5, 6]]  # these are the edges
+
+graph = {}  # this is the empty dictionary
+n = 6  # this is the number of vertices
+
+for i in range(1, n + 1):
+    graph[i] = []  # here we initialize the key (graph[i]) and assign an empty list to it
+
+for u, v in ipt:
+    graph[u].append(v)  # here we append the v values to key u and in below u values to key v
+    graph[v].append(u)
+
+print(graph)  # then we print the dictionary. This is called the adjacency list
+
+visited = {}
+
+
+def bfs(graph, visited):
+    queue = []
+    answer = []
+    queue.append(1)
+    visited[1] = True
+    while queue:
+        temp = queue.pop(0)
+        print(temp)
+        for child in graph[temp]:
+            if child not in visited or not visited[child]:
+                queue.append(child)
+                visited[child] = True
+
+
+bfs(graph, visited)
+
+
+

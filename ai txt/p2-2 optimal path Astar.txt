@@ -1,0 +1,61 @@
+from queue import PriorityQueue
+
+class GraphNode:
+    def __init__(self, state, parent=None, action=None, cost=0):
+        self.state = state
+        self.parent = parent
+        self.action = action
+        self.cost = cost
+        self.heuristic = 0
+
+    def get_total_cost(self):
+        return self.cost + self.heuristic
+
+def reconstruct_path(node):
+    path = []
+    while node:
+        path.append(node.state)
+        node = node.parent
+    return path[::-1]
+
+def find_optimal_path(start_state, goal_state):
+    start_node = GraphNode(start_state)
+    open_set = PriorityQueue()
+    open_set.put((start_node.get_total_cost(), start_node))
+
+    closed_set = set()
+
+    while not open_set.empty():
+        _, current_node = open_set.get()
+        if current_node.state == goal_state:
+            return reconstruct_path(current_node)
+
+        closed_set.add(current_node.state)
+
+        neighbors = get_neighbors(current_node.state)
+        for neighbor_state in neighbors:
+            if neighbor_state in closed_set:
+                continue
+
+            neighbor_node = GraphNode(neighbor_state, current_node, cost=current_node.cost + 1)
+            open_set.put((neighbor_node.get_total_cost(), neighbor_node))
+
+    return None
+
+# Example usage:
+def get_neighbors(state):
+    # Define how to generate neighboring states based on the current state
+    pass
+
+start_state = ...  # Define your start state
+goal_state = ...   # Define your goal state
+
+solution = find_optimal_path(start_state, goal_state)
+if solution:
+    print("Optimal path found!")
+    for step in solution:
+        print(step)
+else:
+    print("No solution found.")
+
+
